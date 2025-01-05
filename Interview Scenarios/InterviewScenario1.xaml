@@ -81,16 +81,17 @@
       <AssemblyReference>System.Linq.Queryable</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="InterviewScenario1" sap:VirtualizedContainerService.HintSize="1012,828" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="InterviewScenario1" sap:VirtualizedContainerService.HintSize="1012,1036" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence sap2010:Annotation.AnnotationText="We have an a String type variable which store &quot;Archana&quot; string and I want to count only char &quot;a&quot; in this string&#xD;&#xA;&#xD;&#xA;Solution :- &#xD;&#xA;strName.ToLower.Count(Function(c) c = &quot;a&quot;c)&#xD;&#xA;strName.Length - strName.Replace(&quot;a&quot;, &quot;&quot;).Replace(&quot;A&quot;,&quot;&quot;).Length&#xD;&#xA;" sap:VirtualizedContainerService.HintSize="468,805" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence sap2010:Annotation.AnnotationText="We have an a String type variable which store &quot;Archana&quot; string and I want to count only char &quot;a&quot; in this string&#xA;&#xA;Solution :- &#xA;strName.ToLower.Count(Function(c) c = &quot;a&quot;c)&#xA;strName.Length - strName.Replace(&quot;a&quot;, &quot;&quot;).Replace(&quot;A&quot;,&quot;&quot;).Length&#xA;" sap:VirtualizedContainerService.HintSize="468,1013" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:String" Name="strName" />
         <Variable x:TypeArguments="x:Int32" Name="CountValue" />
+        <Variable x:TypeArguments="scg:Dictionary(x:String, x:Int32)" Name="DictVar" />
       </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -123,7 +124,16 @@
           <InArgument x:TypeArguments="x:Int32">[strName.Length - strName.Replace("a", "").Replace("A","").Length]</InArgument>
         </Assign.Value>
       </Assign>
-      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="434,113" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[&quot;Using Replace method :-&quot; +CountValue.ToString]" />
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="434,122" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[&quot;Using Replace method :-&quot; +CountValue.ToString]" />
+      <Assign DisplayName="Using Dictionary with LINQ" sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_5">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Int32)">[DictVar]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Int32)">[strName.GroupBy(Function(x)x.ToString).ToDictionary(Function(x)x(0).ToString,Function(y)y.Count)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="434,113" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[&quot;Using Dictionary method :-&quot; +String.Join(&quot;,&quot;,DictVar)]" />
     </Sequence>
   </Sequence>
 </Activity>
